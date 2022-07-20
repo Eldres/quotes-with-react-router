@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-import { Prompt } from "react-router-dom";
+import { Fragment, useRef, useState } from "react";
 
 import Card from "../ui/Card";
 import LoadingSpinner from "../ui/LoadingSpinner";
@@ -7,6 +6,7 @@ import classes from "./QuoteForm.module.css";
 
 const QuoteForm = (props) => {
   const [isEntering, setIsEntering] = useState(false);
+
   const authorInputRef = useRef();
   const textInputRef = useRef();
 
@@ -21,23 +21,26 @@ const QuoteForm = (props) => {
     props.onAddQuote({ author: enteredAuthor, text: enteredText });
   }
 
-  const handleFormFocus = () => {
-    setIsEntering(true);
-  };
-
-  const handleFinish = () => {
+  const finishEnteringHandler = () => {
     setIsEntering(false);
   };
 
+  const formFocusedHandler = () => {
+    setIsEntering(true);
+  };
+
   return (
-    <>
-      <Prompt
+    <Fragment>
+      {/* Prompt is currently not supported yet by v6 */}
+      {/* <Prompt
         when={isEntering}
-        message={(location) => "Are you sure you want to leave?"}
-      />
+        message={(location) =>
+          'Are you sure you want to leave? All your entered data will be lost!'
+        }
+      /> */}
       <Card>
         <form
-          onFocus={handleFormFocus}
+          onFocus={formFocusedHandler}
           className={classes.form}
           onSubmit={submitFormHandler}
         >
@@ -56,13 +59,13 @@ const QuoteForm = (props) => {
             <textarea id="text" rows="5" ref={textInputRef}></textarea>
           </div>
           <div className={classes.actions}>
-            <button onClick={handleFinish} className="btn">
+            <button onClick={finishEnteringHandler} className="btn">
               Add Quote
             </button>
           </div>
         </form>
       </Card>
-    </>
+    </Fragment>
   );
 };
 
