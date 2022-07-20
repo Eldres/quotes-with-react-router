@@ -39,7 +39,7 @@ const QuoteDetail = () => {
 
   return (
     <>
-      <HighlightedQuote text={quote.text} author={quote.author} />
+      <HighlightedQuote text={loadedQuotes.text} author={loadedQuotes.author} />
       <Route path={`${matchRoute.path}`} exact>
         <div className="centered">
           <Link className="btn--flat" to={`${matchRoute.url}/comments`}>
